@@ -4,8 +4,8 @@ import ssl
 
 HOST="127.0.0.1"
 PORT=9000
-SSL_SERVER_KEY="server.key"
-SSL_SERVER_CERTIFICATE="server.crt"
+SSL_SERVER_KEY="nora.key"
+SSL_SERVER_CERTIFICATE="nora.crt"
 SSL_CA_FILE="ca.crt"
 
 
@@ -15,7 +15,7 @@ sock.bind((HOST,PORT))
 sock.listen(1)
 
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-ssl_context.set_ciphers("HIGH")
+ssl_context.set_ciphers("ECDHE-RSA-AES256-GCM-SHA384")
 ssl_context.load_verify_locations(SSL_CA_FILE)
 ssl_context.load_cert_chain(SSL_SERVER_CERTIFICATE, SSL_SERVER_KEY)
 ssl_context.verify_mode = ssl.CERT_REQUIRED
@@ -29,7 +29,9 @@ while True:
 	try:
 		client_sock,_ = sock.accept()	
 		ssl_sock = ssl_context.wrap_socket(client_sock, server_side=True)
-	
+		print("Connected succesfully!")	
 		ssl_sock.close()	
-	except:
+	except Exception as e:
+		print("FAILED!")
+		print("Error: %s" % e)
 		continue
