@@ -1,6 +1,7 @@
 # Description
 
 Request-Response protocol
+
 HTTP 4.0 - JSON:ified
 
 ## Request:
