@@ -1,6 +1,7 @@
 # Description
 
 Request-Response protocol
+
 HTTP 4.0 - JSON:ified
 
 ## Request:
@@ -24,15 +25,20 @@ HTTP 4.0 - JSON:ified
 
 ## Note structure
 Typical structure of a note. The MIME header does not need to exist.
-> Key: Value
-> Key: Value
-> 
-> <note content>
+
+```
+Key: Value
+Key: Value
+
+<note content>
+```
 
 Typical MIME types examples:
-> Title: title of note
-> Category: cryptography
-> Tags: crypto,cbc,ecb
+```
+Title: title of note
+Category: cryptography
+Tags: crypto,cbc,ecb
+```
 
 # API Definition
 
@@ -78,9 +84,10 @@ body of the request.
 
 Valid body values:
 
+> { "previous" : "-n" }
+
 fetch the n-th previous note (-1 for previous)
 
-> { "previous" : "-n" }
 
 ### Response
 ```
