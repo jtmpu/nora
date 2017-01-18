@@ -3,18 +3,18 @@ import socket
 import ssl
 
 HOST="127.0.0.1"
-PORT=9000
+PORT=17341
 
-SSL_CLIENT_KEY="client1.key"
-SSL_CLIENT_CERTIFICATE="client1.crt"
-SSL_CA_FILE="ca.crt"
+SSL_CLIENT_KEY="../certs/example_client.key"
+SSL_CLIENT_CERTIFICATE="../certs/example_client.crt"
+SSL_CA_FILE="../certs/example_ca.crt"
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.settimeout(10)
 
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
 ssl_context.load_verify_locations(SSL_CA_FILE)
-ssl_context.set_ciphers("ECDHE-ECDSA-AES256-GCM-SHA384")
+ssl_context.set_ciphers("ECDHE-RSA-AES256-GCM-SHA384")
 ssl_context.load_cert_chain(SSL_CLIENT_CERTIFICATE, SSL_CLIENT_KEY)
 ssl_context.verify_mode = ssl.CERT_REQUIRED
 ssl_context.check_hostname = False
