@@ -83,9 +83,10 @@ body of the request.
 
 Valid body values:
 
+> { "previous" : "-n" }
+
 fetch the n-th previous note (-1 for previous)
 
-> { "previous" : "-n" }
 
 ### Response
 ```
