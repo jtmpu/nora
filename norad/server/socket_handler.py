@@ -4,9 +4,10 @@ import ssl
 import socket
 
 class SocketHandler:
-    def __init__(self, config, logger):
+    def __init__(self, config, logger, message_handler):
         self.config = config
         self.logger = logger
+        self.message_handler = message_handler
     
     def init(self):
         '''
@@ -57,5 +58,16 @@ class SocketHandler:
         while True:
             client_socket,source = self.sock.accept()
             self.logger.log("SocketHandler - Accepted connection from %s:%d" % (source[0], source[1]), log.Info)
-            client_socket.close()
+
+            try:
+                ssl_socket = self.ssl_context.wrap_socket(client_socket, server_side=True)     
+            except Exception as e:
+                self.logger.log("SocketHandler - TLS Exception: %s" % e, log.Error)
+                client_socket.close()
+                continue
+
+            self.message_handler.handle_socket(ssl_socket)
+	
+            ssl_socket.shutdown(socket.SHUT_RDWR)
+            ssl_socket.close()
             self.logger.log("SocketHandler - Closing connection from %s:%d" % (source[0], source[1]), log.Info)

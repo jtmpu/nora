@@ -19,6 +19,8 @@ if os.path.exists(OVERRIDE_CONFIG_NAME):
 factory = norad.factory.create_factory(config)
 logger = factory.get_logger()
 
+logger.log("NORA daemon starting.", norad.log.Info)
+
 # Check for dangerous configuration
 default = ConfigParser.ConfigParser()
 with open(DEFAULT_CONFIG_NAME, "r") as f:
@@ -31,8 +33,6 @@ if (config.get("security", "cafile") == default.get("security", "cafile")
     logger.log("DEFAULT CERTIFICATES USED.", norad.log.Warning)
 if not config.getboolean("security", "verify"):
     logger.log("CERTIFICATE VERIFICATION DISABLED", norad.log.Warning)
-
-
 
 socket_handler = factory.create_sockethandler()
 socket_handler.init()

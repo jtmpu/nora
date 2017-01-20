@@ -2,6 +2,7 @@
 
 from . import log
 from .server import socket_handler
+from .server import message_handler
 
 class Factory:
     def __init__(self, config):
@@ -13,8 +14,12 @@ class Factory:
             self.logger = log.Logger(self.config)
         return self.logger
 
+    def create_messagehandler(self):
+        return message_handler.MessageHandler(self.config, self.get_logger())
+
     def create_sockethandler(self):
-        return socket_handler.SocketHandler(self.config, self.get_logger())
+        return socket_handler.SocketHandler(self.config, self.get_logger(), 
+                                            self.create_messagehandler())
 
 FACTORY_SINGLETON = None
 def create_factory(config):
