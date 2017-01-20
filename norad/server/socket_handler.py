@@ -4,6 +4,12 @@ import ssl
 import socket
 
 class SocketHandler:
+    '''
+    Listens for new TCP connections, and handles the 
+    TLS handshake. 
+    On correct establishment of correction, lets
+    a MessageHandler object handle the communication.
+    '''
     def __init__(self, config, logger, message_handler):
         self.config = config
         self.logger = logger

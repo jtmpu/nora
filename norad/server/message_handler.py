@@ -4,7 +4,14 @@ import json
 from .. import log
 
 class MessageHandler:
+    '''
+    Handles the communication with the client and the 
+    support plugins of the NORA daemon.
 
+    Enforces that requests are properly formatted and 
+    are targeting valid commands.
+    Otherwise; returns errors to clients. 
+    '''
     def __init__(self, config, logger):
         '''
         Initializes the message handler
