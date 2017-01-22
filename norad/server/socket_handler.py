@@ -74,6 +74,9 @@ class SocketHandler:
 
             self.message_handler.handle_socket(ssl_socket)
 	
-            ssl_socket.shutdown(socket.SHUT_RDWR)
-            ssl_socket.close()
+            try:
+                ssl_socket.shutdown(socket.SHUT_RDWR)
+                ssl_socket.close()
+            except:
+                self.logger.log("SocketHandler - Failed to close socket.", log.Debug) 
             self.logger.log("SocketHandler - Closing connection from %s:%d" % (source[0], source[1]), log.Info)

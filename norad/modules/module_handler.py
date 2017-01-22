@@ -29,10 +29,12 @@ class ModuleHandler:
         self.modules[add_note.get_command()] = add_note
 
     def get_command(self):
-        return "help"
+        return "commands"
 
     def get_description(self):
-        return "Use help <command> for more information about a specific command.\n"  
+        return """List all commands available on the server. 
+Specify a command in the data parameter to learn to get the description of it.
+""" 
 
     def is_valid_request(self, request):
         return True

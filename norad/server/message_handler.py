@@ -51,7 +51,7 @@ class MessageHandler:
 
         if json_request["command"] not in self.module_handler.get_modules().keys():
             # Command not found
-            self.respond_error(socket, 501, "The command %s is not a recognized command." % json_request["command"], [], "See help for available commands.")
+            self.respond_error(socket, 501, "The command %s is not a recognized command." % json_request["command"], [], "See 'commands' for available commands.")
             return False
 
         module = self.module_handler.get_modules()[json_request["command"]]
